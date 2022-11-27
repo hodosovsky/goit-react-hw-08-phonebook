@@ -36,6 +36,7 @@ const App = () => {
 
   const handleFormSubmit = data => {
     data.id = nanoid();
+
     const findedContact = data.name.toLowerCase();
     if (
       contacts.find(contact =>
