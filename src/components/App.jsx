@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { ContactList, Container } from './App.styled';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
   createUserAction,
   deleteUserAction,
@@ -19,9 +20,7 @@ const App = () => {
   const contactsFromState = useSelector(getConacts);
   const filter = useSelector(getFilterValue);
 
-  useEffect(() => {
-    // localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contactsFromState]);
+  useEffect(() => {}, [contactsFromState]);
 
   const getVisibleContacts = () => {
     const normalaziedFilter = filter.toLowerCase();
@@ -31,7 +30,7 @@ const App = () => {
   };
 
   const handleChangeFilter = event => {
-    dispatch(findUserAction(event.currentTarget.value));
+    dispatch(findUserAction(event.target.value));
   };
 
   const handleFormSubmit = data => {
