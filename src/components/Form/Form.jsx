@@ -25,9 +25,11 @@ const Form = ({ onSubmit }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
+
     const contact = {};
     contact.name = name;
     contact.number = number;
+
     onSubmit(contact);
     reset();
   };
