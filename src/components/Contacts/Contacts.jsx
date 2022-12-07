@@ -1,22 +1,42 @@
 import PropTypes from 'prop-types';
 import { Button } from './Contacts.styled';
 import { useDispatch } from 'react-redux';
-import { deleteUserAction } from '../../redux/contacts/slice';
+import {
+  deleteUserAction,
+  getConacts,
+  getFilterValue,
+} from '../../redux/contacts/slice';
+import { useSelector } from 'react-redux';
 
 const Contacts = ({ options }) => {
   const dispatch = useDispatch();
+
+  const contactsFromState = useSelector(getConacts);
+  const filter = useSelector(getFilterValue);
+
+  // useEffect(() => {}, [contactsFromState]);
+
+  const getVisibleContacts = () => {
+    const normalaziedFilter = filter.toLowerCase();
+    return contactsFromState.filter(contact =>
+      contact.name.toLowerCase().includes(normalaziedFilter)
+    );
+  };
+
+  const visibleContacts = getVisibleContacts();
+
   const handleDeleteContact = e => {
     dispatch(deleteUserAction(e.target.name));
   };
   return (
     <>
-      {options.map(option => (
-        <li key={option.id} className="list__item">
-          <span>{option.name} </span>
-          <span>{option.number}</span>
+      {visibleContacts.map(visibleContact => (
+        <li key={visibleContact.id} className="list__item">
+          <span>{visibleContact.name} </span>
+          <span>{visibleContact.number}</span>
           <Button
             type="button"
-            name={option.name}
+            name={visibleContact.name}
             onClick={handleDeleteContact}
           >
             Delete

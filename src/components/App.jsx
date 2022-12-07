@@ -1,23 +1,20 @@
 import { ContactList, Container } from './App.styled';
-import { useSelector } from 'react-redux';
-
-import { getFilterValue, getConacts } from '../redux/contacts/slice';
 import Form from './Form/Form';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter.jsx';
 
 const App = () => {
-  const contactsFromState = useSelector(getConacts);
-  const filter = useSelector(getFilterValue);
+  // const contactsFromState = useSelector(getConacts);
+  // const filter = useSelector(getFilterValue);
 
-  // useEffect(() => {}, [contactsFromState]);
+  // // useEffect(() => {}, [contactsFromState]);
 
-  const getVisibleContacts = () => {
-    const normalaziedFilter = filter.toLowerCase();
-    return contactsFromState.filter(contact =>
-      contact.name.toLowerCase().includes(normalaziedFilter)
-    );
-  };
+  // const getVisibleContacts = () => {
+  //   const normalaziedFilter = filter.toLowerCase();
+  //   return contactsFromState.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalaziedFilter)
+  //   );
+  // };
 
   // const handleChangeFilter = event => {
   //   dispatch(findUserAction(event.target.value));
@@ -45,12 +42,12 @@ const App = () => {
     <Container>
       <h2>Phonebook</h2>
       <Form />
-      <Filter value={filter} />
+      <Filter />
       <h2>Contacts</h2>
       <ContactList className="contact__list">
         <Contacts
-          options={getVisibleContacts()}
-          // onClick={handleDeleteContact}
+        // options={getVisibleContacts()}
+        // // onClick={handleDeleteContact}
         />
       </ContactList>
     </Container>
