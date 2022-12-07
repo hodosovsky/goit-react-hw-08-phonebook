@@ -1,14 +1,24 @@
 import PropTypes from 'prop-types';
 import { Button } from './Contacts.styled';
+import { useDispatch } from 'react-redux';
+import { deleteUserAction } from '../../redux/contacts/slice';
 
-const Contacts = ({ options, onClick }) => {
+const Contacts = ({ options }) => {
+  const dispatch = useDispatch();
+  const handleDeleteContact = e => {
+    dispatch(deleteUserAction(e.target.name));
+  };
   return (
     <>
       {options.map(option => (
         <li key={option.id} className="list__item">
           <span>{option.name} </span>
           <span>{option.number}</span>
-          <Button type="button" name={option.name} onClick={onClick}>
+          <Button
+            type="button"
+            name={option.name}
+            onClick={handleDeleteContact}
+          >
             Delete
           </Button>
         </li>
@@ -25,7 +35,7 @@ Contacts.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onClick: PropTypes.func.isRequired,
+  // onClick: PropTypes.func.isRequired,
 };
 
 export default Contacts;

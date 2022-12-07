@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types';
-
+import { nanoid } from 'nanoid';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { useSelector, useDispatch } from 'react-redux';
+import { createUserAction, getConacts } from '../../redux/contacts/slice';
 import { MyForm } from './Form.styled';
 const { useState } = require('react');
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const contactsFromState = useSelector(getConacts);
 
   const stateMap = {
     name: setName,
@@ -14,7 +18,6 @@ const Form = ({ onSubmit }) => {
 
   const handleAddContact = event => {
     const { name } = event.target;
-
     stateMap[name](event.target.value);
   };
 
@@ -29,8 +32,19 @@ const Form = ({ onSubmit }) => {
     const contact = {};
     contact.name = name;
     contact.number = number;
+    contact.id = nanoid();
 
-    onSubmit(contact);
+    const findedContact = contact.name.toLowerCase();
+    if (
+      contactsFromState.find(contact =>
+        contact.name.toLowerCase().includes(findedContact)
+      )
+    ) {
+      Report.failure(`${contact.name} is already in contacts`);
+    } else {
+      dispatch(createUserAction(contact));
+    }
+    // onSubmit(contact);
     reset();
   };
 
@@ -129,8 +143,8 @@ const Form = ({ onSubmit }) => {
 //     );
 //   }
 // }
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// Form.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default Form;
