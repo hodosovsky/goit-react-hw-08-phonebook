@@ -35,7 +35,8 @@ const Contacts = ({ options }) => {
       {visibleContacts?.map(visibleContact => (
         <li key={visibleContact.id} className="list__item">
           <span>{visibleContact.name} </span>
-          <span>{visibleContact.number}</span>
+          <br />
+          <span>{visibleContact.phone}</span>
           <Button
             type="button"
             id={visibleContact.id}
