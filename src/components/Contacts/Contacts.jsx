@@ -1,24 +1,25 @@
 import PropTypes from 'prop-types';
 import { Button } from './Contacts.styled';
 import { useDispatch } from 'react-redux';
-import {
-  deleteUserAction,
-  getConacts,
-  getFilterValue,
-} from '../../redux/contacts/slice';
+import { getConacts } from '../../redux/contacts/slice';
+import { getFilterValue } from 'redux/filter/slice';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUsersThunk, deleteContactsThunk } from 'redux/contacts/thunk.users';
 
 const Contacts = ({ options }) => {
   const dispatch = useDispatch();
 
-  const contactsFromState = useSelector(getConacts);
   const filter = useSelector(getFilterValue);
 
-  // useEffect(() => {}, [contactsFromState]);
+  useEffect(() => {
+    dispatch(getUsersThunk({}));
+  }, [dispatch]);
+  const contactsFromState = useSelector(getConacts);
 
   const getVisibleContacts = () => {
-    const normalaziedFilter = filter.toLowerCase();
-    return contactsFromState.filter(contact =>
+    const normalaziedFilter = filter?.toLowerCase();
+    return contactsFromState?.filter(contact =>
       contact.name.toLowerCase().includes(normalaziedFilter)
     );
   };
@@ -26,17 +27,18 @@ const Contacts = ({ options }) => {
   const visibleContacts = getVisibleContacts();
 
   const handleDeleteContact = e => {
-    dispatch(deleteUserAction(e.target.name));
+    // dispatch(deleteUserAction(e.target.id));
+    dispatch(deleteContactsThunk(e.target.id));
   };
   return (
     <>
-      {visibleContacts.map(visibleContact => (
+      {visibleContacts?.map(visibleContact => (
         <li key={visibleContact.id} className="list__item">
           <span>{visibleContact.name} </span>
           <span>{visibleContact.number}</span>
           <Button
             type="button"
-            name={visibleContact.name}
+            id={visibleContact.id}
             onClick={handleDeleteContact}
           >
             Delete

@@ -1,39 +1,79 @@
 import { createSlice } from '@reduxjs/toolkit';
-import usersJson from './users.json';
+
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
+import {
+  addContactThunk,
+  getUsersThunk,
+  deleteContactsThunk,
+} from './thunk.users';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 export const mySlice = createSlice({
   name: 'contacts',
   initialState: {
-    users: usersJson,
-    filter: '',
+    users: [],
+    isLoading: false,
+    error: null,
   },
-  reducers: {
-    createUserAction(state, action) {
-      state.users.unshift(action.payload);
+  // extraReducers: builder => {
+  //   builder
+  //     .addCase(getUsersThunk.pending, handlePending)
+  //     .addCase(getUsersThunk.fulfilled, (state, action) => {
+  //       state.isLoading = false;
+  //       state.error = null;
+  //       state.users = action.payload;
+  //     })
+  //     .addCase(getUsersThunk.rejected, handleRejected);
+  // },
+  extraReducers: {
+    [getUsersThunk.pending]: handlePending,
+    [getUsersThunk.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.users = action.payload;
     },
-    deleteUserAction(state, action) {
-      state.users = state.users.filter(item => item.name !== action.payload);
+    [getUsersThunk.rejected]: handleRejected,
+    [addContactThunk.pending]: handlePending,
+    [addContactThunk.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.users.push(action.payload);
     },
-    findUserAction(state, action) {
-      state.filter = action.payload;
+    [addContactThunk.rejected]: handleRejected,
+    [deleteContactsThunk.pending]: handlePending,
+    [deleteContactsThunk.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.users.findIndex(
+        task => task.id === action.payload.id
+      );
+      state.users.splice(index, 1);
     },
+    [deleteContactsThunk.rejected]: handleRejected,
   },
 });
 
 const persistConfig = {
   key: 'users',
   storage,
-  whitelist: ['users'],
+  whitelist: [],
 };
 
 export const contactsReducer = persistReducer(persistConfig, mySlice.reducer);
 
 export const usersReducer = mySlice.reducer;
 
-export const { createUserAction, deleteUserAction, findUserAction } =
-  mySlice.actions;
+// export const { createUserAction, deleteUserAction, findUserAction } =
+//   mySlice.actions;
 
-export const getFilterValue = state => state.contacts.filter;
 export const getConacts = state => state.contacts.users;

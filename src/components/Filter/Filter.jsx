@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { findUserAction } from '../../redux/contacts/slice';
-
+import { findUserAction } from 'redux/filter/slice';
 const Filter = () => {
   const dispatch = useDispatch();
   const handleChangeFilter = event => {
