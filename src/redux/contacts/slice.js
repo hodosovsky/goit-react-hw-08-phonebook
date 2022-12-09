@@ -75,5 +75,3 @@ export const usersReducer = mySlice.reducer;
 
 // export const { createUserAction, deleteUserAction, findUserAction } =
 //   mySlice.actions;
-
-export const getConacts = state => state.contacts.users;

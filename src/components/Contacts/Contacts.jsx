@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Button } from './Contacts.styled';
 import { useDispatch } from 'react-redux';
-import { getConacts } from '../../redux/contacts/slice';
-import { getFilterValue } from 'redux/filter/slice';
+import { getConacts, getFilterValue } from 'redux/selectors';
+
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUsersThunk, deleteContactsThunk } from 'redux/contacts/thunk.users';

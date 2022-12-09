@@ -3,7 +3,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import { useSelector, useDispatch } from 'react-redux';
 // import { createUserAction } from '../../redux/contacts/slice';
 // import { getFilterValue } from 'redux/filter/slice';
-import { getConacts } from '../../redux/contacts/slice';
+import { getConacts } from 'redux/selectors';
 import { addContactThunk } from 'redux/contacts/thunk.users';
 import { MyForm } from './Form.styled';
 const { useState } = require('react');
