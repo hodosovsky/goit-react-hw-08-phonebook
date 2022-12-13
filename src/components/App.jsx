@@ -1,56 +1,38 @@
-import { ContactList, Container } from './App.styled';
-import Form from './Form/Form';
-import Contacts from './Contacts/Contacts';
-import Filter from './Filter/Filter.jsx';
+// import { ContactList, Container } from './App.styled';
+// import Form from './Form/Form';
+// import Contacts from './Contacts/Contacts';
+// import Filter from './Filter/Filter.jsx';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { fetchCurrentUser } from 'redux/auth/auth-operation';
+
+import { Layout } from '../components/Layout/Layout';
+
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
+const Login = lazy(() => import('../pages/LoginPage/Login'));
+const Register = lazy(() => import('../pages/RegisterPage/Register'));
 
 const App = () => {
-  // const contactsFromState = useSelector(getConacts);
-  // const filter = useSelector(getFilterValue);
-
-  // // useEffect(() => {}, [contactsFromState]);
-
-  // const getVisibleContacts = () => {
-  //   const normalaziedFilter = filter.toLowerCase();
-  //   return contactsFromState.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalaziedFilter)
-  //   );
-  // };
-
-  // const handleChangeFilter = event => {
-  //   dispatch(findUserAction(event.target.value));
-  // };
-
-  // const handleFormSubmit = data => {
-  //   data.id = nanoid();
-
-  //   const findedContact = data.name.toLowerCase();
-  //   if (
-  //     contactsFromState.find(contact =>
-  //       contact.name.toLowerCase().includes(findedContact)
-  //     )
-  //   ) {
-  //     Report.failure(`${data.name} is already in contacts`);
-  //   } else {
-  //     dispatch(createUserAction(data));
-  //   }
-  // };
-
-  // const handleDeleteContact = e => {
-  //   dispatch(deleteUserAction(e.target.name));
-  // };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
   return (
-    <Container>
-      <h2>Phonebook</h2>
-      <Form />
-      <Filter />
-      <h2>Contacts</h2>
-      <ContactList className="contact__list">
-        <Contacts
-        // options={getVisibleContacts()}
-        // // onClick={handleDeleteContact}
-        />
-      </ContactList>
-    </Container>
+    <BrowserRouter basename="/goit-react-hw-08-phonebook">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="contacts" element={<ContactsPage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          {/* <Route path="movies/:moveiId" element={<MovieByIDPage />}>
+            <Route path="cast" element={<CastPage />} />
+            <Route path="reviews" element={<ReviewPage />} />
+          </Route> */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

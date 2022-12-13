@@ -4,8 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // import { getTasks } from './selectors';
 
-axios.defaults.baseURL = 'https://6390725c65ff41831113d715.mockapi.io';
-
 export const getUsersThunk = createAsyncThunk(
   'users/fetchAll',
   async (_, thunkAPI) => {

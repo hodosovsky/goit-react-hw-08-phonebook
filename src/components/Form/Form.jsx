@@ -10,13 +10,13 @@ const { useState } = require('react');
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
   const contactsFromState = useSelector(getConacts);
 
   const stateMap = {
     name: setName,
-    number: setPhone,
+    number: setNumber,
   };
 
   const handleAddContact = event => {
@@ -26,7 +26,7 @@ const Form = ({ onSubmit }) => {
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   const handleSubmit = event => {
@@ -34,7 +34,7 @@ const Form = ({ onSubmit }) => {
 
     const contact = {};
     contact.name = name;
-    contact.phone = phone;
+    contact.number = number;
     // contact.id = nanoid();
 
     const findedContact = contact.name.toLowerCase();
@@ -73,7 +73,7 @@ const Form = ({ onSubmit }) => {
         <input
           type="tel"
           name="number"
-          value={phone}
+          value={number}
           onChange={handleAddContact}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
