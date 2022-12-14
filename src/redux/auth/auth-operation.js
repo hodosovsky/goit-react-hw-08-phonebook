@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useSelector } from 'react-redux';
-import authSelectors from './auth-selectors';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 const token = {
@@ -52,13 +50,12 @@ const fetchCurrentUser = createAsyncThunk(
   async (_, thunAPI) => {
     const state = thunAPI.getState();
     const persistedToken = state.auth.token;
-    const token = useSelector(authSelectors.selectToken);
+
     try {
-      if (!persistedToken || token !== persistedToken) {
+      token.set(persistedToken);
+      if (!persistedToken) {
         return thunAPI.rejectWithValue();
       }
-
-      token.set(persistedToken);
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
