@@ -9,6 +9,8 @@ import { fetchCurrentUser } from 'redux/auth/auth-operation';
 import authSelectors from 'redux/auth/auth-selectors';
 
 import { Layout } from '../components/Layout/Layout';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
+import { PublicRoute } from './PublicRoute/PublicRoute.jsx';
 
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 const Login = lazy(() => import('../pages/LoginPage/Login'));
@@ -26,11 +28,14 @@ const App = () => {
       <BrowserRouter basename="/goit-react-hw-08-phonebook">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="contacts" element={<ContactsPage />} />
-
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/" element={<PrivateRoute />}>
+              <Route path="/contacts" element={<ContactsPage />} />
+            </Route>
+            <Route path="/" element={<PublicRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Navigate to="/login" />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
