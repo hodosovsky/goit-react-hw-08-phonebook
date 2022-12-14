@@ -43,14 +43,14 @@ const fetchCurrentUser = createAsyncThunk(
 
     if (!persistedToken) {
       return thunAPI.rejectWithValue();
-    } else {
-      token.set(persistedToken);
-      try {
-        const { data } = await axios.get('/users/current');
-
-        return data;
-      } catch (error) {}
     }
+
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+
+      return data;
+    } catch (error) {}
   }
 );
 
