@@ -35,7 +35,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           id="outlined-required"
-          label="Name"
+          label="email"
           type="email"
           name="email"
           value={email}

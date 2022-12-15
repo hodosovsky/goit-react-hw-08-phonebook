@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUsersThunk, deleteContactsThunk } from 'redux/contacts/thunk.users';
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 const Contacts = ({ options }) => {
   const dispatch = useDispatch();
@@ -52,7 +51,6 @@ const Contacts = ({ options }) => {
           <span>{visibleContact.number}</span>
           <Button
             variant="outlined"
-            startIcon={<DeleteIcon />}
             type="button"
             id={visibleContact.id}
             onClick={handleDeleteContact}
