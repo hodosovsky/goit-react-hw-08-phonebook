@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/auth-operation';
 import { Report } from 'notiflix';
+import { RegisterPage } from './RegisterPage.styled';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -35,49 +38,56 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <RegisterPage>
       <h1>Register page</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Login</p>
-
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            required
-          ></input>
-        </label>
-        <label>
-          <p>Email</p>
-
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            //   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            required
-          ></input>
-        </label>
-
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{7,}"
-            required
-          />
-        </label>
+        <TextField
+          id="outlined-required"
+          type="text"
+          name="name"
+          value={name}
+          label="Name"
+          onChange={handleChange}
+          size="small"
+          required
+        ></TextField>
         <br />
-        <button type="submit">Login</button>
+        <br />
+
+        <TextField
+          id="outline-required"
+          type="email"
+          name="email"
+          value={email}
+          label="email"
+          onChange={handleChange}
+          size="small"
+          //   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          required
+        ></TextField>
+        <br />
+        <br />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          helperText="Min 7 symbols"
+          autoComplete="current-password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          size="small"
+          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{7,}"
+          required
+        />
+
+        <br />
+        <br />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
       </form>
-    </div>
+    </RegisterPage>
   );
 };
 

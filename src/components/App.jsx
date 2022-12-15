@@ -29,8 +29,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<PrivateRoute />}>
+              <Route index element={<Navigate to="/contacts" />} />
               <Route path="/contacts" element={<ContactsPage />} />
-              <Route path="/" element={<Navigate to="/contacts" />} />
             </Route>
             <Route path="/" element={<PublicRoute />}>
               <Route path="/login" element={<Login />} />

@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { login } from 'redux/auth/auth-operation';
+import { LoginPage } from './LoginPage.styled';
+
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -26,37 +30,43 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <LoginPage>
       <h1>Login page</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Email</p>
-
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            //   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            required
-          ></input>
-        </label>
-
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            //   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}"
-            required
-          />
-        </label>
+        <TextField
+          id="outlined-required"
+          label="Name"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          size="small"
+          //   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          required
+        ></TextField>
         <br />
-        <button type="submit">Login</button>
+        <br />
+
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          size="small"
+          //   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}"
+          required
+        />
+
+        <br />
+        <br />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
       </form>
-    </div>
+    </LoginPage>
   );
 };
 

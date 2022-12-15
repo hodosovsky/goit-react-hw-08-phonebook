@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getConacts } from 'redux/selectors';
 import { addContactThunk } from 'redux/contacts/thunk.users';
 import { MyForm } from './Form.styled';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 const { useState } = require('react');
 
 const Form = ({ onSubmit }) => {
@@ -54,35 +56,44 @@ const Form = ({ onSubmit }) => {
 
   return (
     <MyForm onSubmit={handleSubmit}>
-      <label>
-        <p>Name:</p>
+      <TextField
+        id="outlined-required"
+        type="text"
+        name="name"
+        label="Name"
+        value={name}
+        onChange={handleAddContact}
+        size="small"
+        inputProps={{
+          inputMode: 'numeric',
+          pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+        }}
+        helperText="Name may contain only letters"
+        required
+      ></TextField>
+      <br />
 
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleAddContact}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        ></input>
-      </label>
+      <TextField
+        id="outlined-number"
+        type="tel"
+        name="number"
+        label="Number"
+        value={number}
+        onChange={handleAddContact}
+        inputProps={{
+          inputMode: 'numeric',
+          pattern: '[0-9, +, -]*',
+        }}
+        size="small"
+        helperText="Number may contain only digit"
+        required
+      />
 
-      <label>
-        <p>Phone Number:</p>
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          onChange={handleAddContact}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </label>
       <br />
       <br />
-      <button type="submit">Add Contact</button>
+      <Button variant="contained" type="submit">
+        Add Contact
+      </Button>
       <br />
       <br />
     </MyForm>

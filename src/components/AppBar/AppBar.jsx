@@ -2,10 +2,18 @@ import { useSelector } from 'react-redux';
 import UserMenu from './UserMenu/UserMenu';
 import NavList from './NavList/NavList';
 import authSelectors from 'redux/auth/auth-selectors';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
-const AppBar = () => {
+const ApBar = () => {
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-  return <>{isLoggedIn ? <UserMenu /> : <NavList />}</>;
+  return (
+    <AppBar position="static">
+      <Toolbar disableGutters>
+        {isLoggedIn ? <UserMenu /> : <NavList />}
+      </Toolbar>
+    </AppBar>
+  );
 };
 
-export default AppBar;
+export default ApBar;

@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 
 import { Outlet } from 'react-router-dom';
-import AppBar from 'components/AppBar/AppBar';
+import ApBar from 'components/AppBar/AppBar';
 
 export const Layout = () => {
   return (
     <>
-      <AppBar />
+      <ApBar />
       {/* {isLogIn === true && } */}
       <Suspense fallback={<p>loading...</p>}>
         <Outlet />

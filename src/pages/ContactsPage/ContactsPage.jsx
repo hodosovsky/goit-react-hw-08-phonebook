@@ -1,7 +1,8 @@
-import { ContactList, Container } from './ContactsPage.styled';
+import { Container } from './ContactsPage.styled';
 import Form from '../../components/Form/Form';
 import Contacts from '../../components/Contacts/Contacts';
 import Filter from '../../components/Filter/Filter';
+import List from '@mui/material/List';
 
 const ContactsPage = () => {
   return (
@@ -10,9 +11,12 @@ const ContactsPage = () => {
       <Form />
       <Filter />
       <h2>Contacts</h2>
-      <ContactList className="contact__list">
+      <List
+
+      // className="contact__list"
+      >
         <Contacts />
-      </ContactList>
+      </List>
     </Container>
   );
 };
