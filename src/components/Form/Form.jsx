@@ -65,7 +65,6 @@ const Form = ({ onSubmit }) => {
         onChange={handleAddContact}
         size="small"
         inputProps={{
-          inputMode: 'numeric',
           pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
         }}
         helperText="Name may contain only letters"
